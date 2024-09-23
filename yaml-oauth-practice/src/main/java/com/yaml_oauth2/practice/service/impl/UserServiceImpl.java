@@ -5,34 +5,32 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.yaml_oauth2.practice.PracticeApplication;
 import com.yaml_oauth2.practice.datamodel.User;
 import com.yaml_oauth2.practice.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Override
 	public User createUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		PracticeApplication.USERS.add(user);
+		return user;
 	}
 
 	@Override
 	public Optional<User> getUser(String id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return PracticeApplication.USERS.stream().filter(user -> user.getId().equals(id)).findFirst();
 	}
 
 	@Override
 	public List<User> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return PracticeApplication.USERS;
 	}
 
 	@Override
 	public void deleteUser(String id) {
-		// TODO Auto-generated method stub
-		
+		PracticeApplication.USERS.removeIf(user -> user.getId().equals(id));
 	}
 
 }
